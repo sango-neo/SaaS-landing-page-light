@@ -2,6 +2,7 @@
 import CheckIcon from "@/assets/check.svg";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
+import HeadingWithScroll from "@/components/HeadingWithScroll";
 
 const pricingTiers = [
   {
@@ -55,14 +56,15 @@ const pricingTiers = [
   },
 ];
 
+const description = "Free forever. Upgrade for unlimited tasks, better security, and exclusive features.";
+
 export const Pricing = () => {
+
+
   return (
     <section className="py-20 bg-white">
       <div className="container">
-        <div className="section-heading">
-          <h2 className="section-title">Pricing</h2>
-          <p className="section-description mt-5">Free forever. Upgrade for unlimited tasks, better security, and exclusive features.</p>
-        </div>
+        <HeadingWithScroll tag="Priced just right" heading="Pricing" description={description} />
         <div className="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center">
           {pricingTiers.map(({ title, monthlyPrice, buttonText, popular, inverse, features }) => (
             <div key={title} className={twMerge("card", inverse === true && "border-black bg-black text-white")}>

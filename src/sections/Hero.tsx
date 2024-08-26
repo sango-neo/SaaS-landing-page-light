@@ -23,19 +23,42 @@ export const Hero = () => {
     <section ref={heroRef} className="pt-8 pb-20 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183ec2,#eaeefe_75%)] overflow-x-clip md:pt-5 md:pb-10">
       <div className="container">
         <div className="md:flex items-center">
-          <div className="md:w-[478px]">
-              <div className="tag">Version 2.0 is here</div>
-              <h1 className="text-5xl font-bold tracking-tighter bg-gradient-to-b from-black to-[#001e80] text-transparent webkit-bg-clip-text mt-6 md:text-7xl">Pathway to productivity</h1>
-              <p className="text-xl text-[#010d3e] tracking-tight mt-6">Celebrate the joy of accomplishment with an app designed to track your progress, motivate your efforts, and celebrate successes.</p>
-              <div className="flex gap-1 items-center mt-[30px]">
+          <div className="md:w-[478px]"
+          >
+              <motion.div className="tag"
+                initial={{ opacity: 0, translateX: 50 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+              >Version 2.0 is here</motion.div>
+              <motion.h1 className="text-5xl font-bold tracking-tighter bg-gradient-to-b from-black to-[#001e80] text-transparent webkit-bg-clip-text mt-6 md:text-7xl"
+                initial={{ opacity: 0, translateX: 50 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
+              >
+                Pathway to productivity
+              </motion.h1>
+              <motion.p className="text-xl text-[#010d3e] tracking-tight mt-6"
+                initial={{ opacity: 0, translateX: 50 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
+              >Celebrate the joy of accomplishment with an app designed to track your progress, motivate your efforts, and celebrate successes.</motion.p>
+              <motion.div className="flex gap-1 items-center mt-[30px]"
+                initial={{ opacity: 0, translateX: 50 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
+              >
                 <button className="btn btn-primary">Get for free</button>
                 <button className="btn btn-text gap-1">
                   <span>Learn more</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
-              </div>
+              </motion.div>
           </div>
-          <div className="mt-20 md:mt-0 md:h-[648px] md:flex-1 md:relative">
+          <motion.div className="mt-20 md:mt-0 md:h-[648px] md:flex-1 md:relative"
+            initial={{ opacity: 0, translateY: 50 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.75, delay: 1, ease: "easeInOut" }}
+          >
             <motion.img 
               src={CogImg.src} alt="Cog Image" 
               className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-6 lg:left-0"
@@ -47,6 +70,7 @@ export const Hero = () => {
                 repeatType: "mirror",
                 duration: 2.5,
                 ease: "easeInOut",
+                delay: 1.75,
               }}
             />
 
@@ -70,7 +94,7 @@ export const Hero = () => {
                 translateY: translateYNoodle,
               }}
               />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

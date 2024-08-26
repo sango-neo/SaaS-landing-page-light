@@ -29,7 +29,7 @@ export const CallToAction = () => {
             {/* <video autoPlay loop width={150} height={150}>
               <source src="/phone.mp4" type="video/webm" />
             </video> */}
-            <Image src={"/phone.gif"} alt="phone" width={150} height={150}/>
+            {/* <Image src={"/phone.gif"} alt="phone" width={150} height={150}/> */}
           </div>
           <h2 className="section-title">Sign up for free today</h2>
           <p className="section-description mt-5">Celebrate the joy of accomplishment with an app designed to track your progress and motivate your efforts.</p>

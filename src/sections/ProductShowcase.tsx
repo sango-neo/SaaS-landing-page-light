@@ -8,30 +8,64 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 export const ProductShowcase = () => {
   const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
+  const headingRef = useRef(null);
+  const imgRef = useRef(null);
+  const { scrollYProgress: scrollYProgress3D } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const translateYPrism = useTransform(scrollYProgress, [0, 1], [250, -350]);
-  const translateYTube = useTransform(scrollYProgress, [0, 1], [250, -350]);
+  const { scrollYProgress: scrollYProgressHeading } = useScroll({
+    target: headingRef,
+    offset: ["start end", "end 70%"],
+  });
+  const { scrollYProgress: scrollYProgressImg } = useScroll({
+    target: imgRef,
+    offset: ["start end", "end 90%"],
+  });
+
+  const translateYPrism = useTransform(scrollYProgress3D, [0, 1], [250, -350]);
+  const translateYTube = useTransform(scrollYProgress3D, [0, 1], [250, -350]);
+
+  const opa = useTransform(scrollYProgressHeading, [0, 1], [0, 1]);
+  const translateY = useTransform(scrollYProgressHeading, [0, 1], [100, 0]);
+
+  const scaleProduct = useTransform(scrollYProgressImg, [0, 1], [0.85, 1]);
   
   return (
     <section className="bg-gradient-to-b from-[#ffffff] to-[#d2dcff] py-20 overflow-x-hidden">
       <div className="container">
-        <div className="section-heading">
-          <div className="text-center">
+        <div className="section-heading" ref={headingRef}>
+          <motion.div className="text-center"
+              style={{
+                opacity: opa,
+                translateY: translateY,
+              }}
+          >
             <div className="tag">Boost your productivity</div>
-          </div>
-          <h2 className="section-title mt-5">A more effective way to track progress</h2>
-          <p className="section-description mt-5">
+          </motion.div>
+          <motion.h2 className="section-title mt-5"
+            style={{
+              opacity: opa,
+              translateY: translateY,
+            }}
+          >A more effective way to track progress</motion.h2>
+          <motion.p className="section-description mt-5"
+            style={{
+              opacity: opa,
+              translateY: translateY,
+            }}
+          >
             Effortlessly turn your ideas into a fully functional, responsive, SaaS website in just minutes with this template.
-          </p>
+          </motion.p>
         </div>
-        <div className="relative">
-          <Image 
-            src={productImg} 
+        <div className="relative" ref={imgRef}>
+          <motion.img 
+            src={productImg.src} 
             alt="Product Image" 
             className="mt-10"
+            style={{
+              scale: scaleProduct,
+            }}
           /> 
           <motion.img 
             src={prismImg.src}
