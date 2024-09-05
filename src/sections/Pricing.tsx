@@ -3,6 +3,7 @@ import CheckIcon from "@/assets/check.svg";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import HeadingWithScroll from "@/components/HeadingWithScroll";
+import { useState } from "react";
 
 const pricingTiers = [
   {
@@ -59,47 +60,76 @@ const pricingTiers = [
 const description = "Free forever. Upgrade for unlimited tasks, better security, and exclusive features.";
 
 export const Pricing = () => {
-
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   return (
     <section className="py-20 bg-white">
       <div className="container">
         <HeadingWithScroll tag="Priced just right" heading="Pricing" description={description} />
         <div className="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center">
-          {pricingTiers.map(({ title, monthlyPrice, buttonText, popular, inverse, features }) => (
-            <div key={title} className={twMerge("card", inverse === true && "border-black bg-black text-white")}>
-              <div className="flex justify-between">
-                <h3 className={twMerge("text-lg font-bold text-black/50", inverse === true && "text-white/60")}>{title}</h3>
-                {popular === true && (
-                  <div className="inline-flex text-sm px-4 py-1.5 rounded-xl border border-white/20">
-                    <motion.span
-                      animate={{
-                        backgroundPositionX: "-100%",
-                      }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "linear",
-                        repeatType: "loop",
-                      }}
-                      className="bg-[linear-gradient(to_right,#dd7ddf,#e1cd86,#bbcb92,#71c2ef,#3bffff,#e1cd86,#bbcb92,#71c2ef,#3bffff,#dd7ddf)] [background-size:200%] text-transparent webkit-bg-clip-text font-medium">Popular</motion.span>
+          {pricingTiers.map(({ title, monthlyPrice, buttonText, popular, inverse, features }, index) => (
+            <motion.div
+              key={title}
+              className={twMerge(
+                "card relative",
+                inverse === true && "border-black bg-black text-white",
+                "overflow-hidden"
+              )}
+              onHoverStart={() => setHoveredCard(index)}
+              onHoverEnd={() => setHoveredCard(null)}
+            >
+              {hoveredCard === index && (
+                <motion.div
+                  className="absolute inset-0 z-0"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  style={{
+                    background: `conic-gradient(from 0deg at 50% 50%, 
+                      ${inverse ? '#ffffff' : '#000000'} 0deg, 
+                      transparent 60deg, 
+                      transparent 300deg, 
+                      ${inverse ? '#ffffff' : '#000000'} 360deg)`,
+                  }}
+                />
+              )}
+              <div className={twMerge(
+                "relative z-10 p-6 bg-white",
+                inverse === true && "bg-black"
+              )}>
+                <div className="flex justify-between">
+                  <h3 className={twMerge("text-lg font-bold text-black/50", inverse === true && "text-white/60")}>{title}</h3>
+                  {popular === true && (
+                    <div className="inline-flex text-sm px-4 py-1.5 rounded-xl border border-white/20">
+                      <motion.span
+                        animate={{
+                          backgroundPositionX: "-100%",
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "linear",
+                          repeatType: "loop",
+                        }}
+                        className="bg-[linear-gradient(to_right,#dd7ddf,#e1cd86,#bbcb92,#71c2ef,#3bffff,#e1cd86,#bbcb92,#71c2ef,#3bffff,#dd7ddf)] [background-size:200%] text-transparent webkit-bg-clip-text font-medium">Popular</motion.span>
+                    </div>
+                  )}
                 </div>
-                )}
+                <div className="flex items-baseline gap-1 mt-[30px]">
+                  <span className="text-4xl font-bold tracking-tighter leading-none">${monthlyPrice}</span>
+                  <span className={twMerge("tracking-tight font-bold text-black/50", inverse === true && "text-white/60")}>/month</span>
+                </div>
+                <button className={twMerge("btn btn-primary w-full mt-8", inverse === true && "text-black bg-white")}>{buttonText}</button>
+                <ul className="flex flex-col gap-5 mt-8">
+                  {features.map((feature, idx) => (
+                    <li key={idx} className="text-sm flex items-center gap-4">
+                      <CheckIcon className="h-6 w-6" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="flex items-baseline gap-1 mt-[30px]">
-                <span className="text-4xl font-bold tracking-tighter leading-none">${monthlyPrice}</span>
-                <span className={twMerge("tracking-tight font-bold text-black/50", inverse === true && "text-white/60")}>/month</span>
-              </div>
-              <button className={twMerge("btn btn-primary w-full mt-8", inverse === true && "text-black bg-white")}>{buttonText}</button>
-              <ul className="flex flex-col gap-5 mt-8">
-                {features.map((feature, idx) => (
-                  <li key={idx} className="text-sm flex items-center gap-4">
-                    <CheckIcon className="h-6 w-6" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
